@@ -1,10 +1,11 @@
 require 'rake/clean'
 
 
-EXE='linereader'
+EXE='bin/linereader'
 HDRS=FileList['src/**/*.h']
 SRC=FileList['src/**/*.cpp']
 OBJ=SRC.ext('o')
+BIN_DIR='bin'
 
 CLEAN.include(OBJ)
 CLOBBER.include('test.exe')
@@ -17,6 +18,10 @@ file EXE do
 	sh "g++ -o #{EXE} -Isrc #{OBJ}"
 end
 
+file BIN_DIR do
+	Dir.mkdir(BIN_DIR)
+end
+
 desc "Default: Build the #{EXE} executable"
 task :default => [:build]
 
@@ -24,4 +29,4 @@ desc "Build the executable"
 task :build => [EXE]
 
 file 'main.o' => ['main.cpp'] + HDRS
-file EXE => OBJ
+file EXE => OBJ + [BIN_DIR]
