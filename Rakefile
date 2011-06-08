@@ -11,7 +11,7 @@ CLEAN.include(OBJ)
 CLOBBER.include('test.exe')
 
 rule '.o' => ['.cpp'] do |t|
-	sh "g++ #{t.source} -c -Isrc -o #{t.name}"
+	sh "g++ #{t.source} -c -Isrc/main/cpp -o #{t.name}"
 end
 
 file EXE do
